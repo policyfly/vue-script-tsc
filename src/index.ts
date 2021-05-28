@@ -77,7 +77,7 @@ export async function tsc(opts: Options): Promise<void> {
     }
   })
 
-  if (emitResult.emitSkipped) {
+  if (allDiagnostics.length) {
     throw new Error('Type Check returned errors')
   }
 }
