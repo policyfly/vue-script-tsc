@@ -20,9 +20,9 @@ export interface Options {
 }
 
 export function parseArgs(opts: Options): Required<Options> {
-  const cwd = resolve(__dirname)
+  const cwd = process.cwd()
   const root = opts.root ? resolve(cwd, opts.root) : cwd
-  const src = opts.src ? resolve(cwd, opts.src) : resolve(cwd, 'src')
+  const src = opts.src ? resolve(cwd, opts.src) : resolve(root, 'src')
   const tsconfig = opts.tsconfig || 'tsconfig.json'
   const tsbuildinfo = opts.tsbuildinfo ? resolve(cwd, opts.tsbuildinfo) : ''
 

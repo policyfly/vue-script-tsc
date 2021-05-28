@@ -19,10 +19,19 @@ yarn add -D vue-script-tsc
 ```
 
 ### CLI
-You can run `vue-script-tsc` as a script.
+
+You can run `vue-script-tsc` as a script, for example in package.json or on the command line.
+
+```json
+// package.json
+"scripts": {
+  "tsc": "yarn vue-script-tsc --root ."
+}
+```
 
 ```bash
-vue-script-tsc --root .
+# Command line
+yarn vue-script-tsc --root .
 ```
 
 ### Programmatic
@@ -32,13 +41,16 @@ You can call `vue-script-tsc` within your own script.
 ```ts
 const { tsc } = require('vue-script-tsc');
 
-async function checkFiles() {
-  await tsc({
-    root: __dirname
+tsc({
+  root: process.cwd()
+})
+  .then(() => {
+    console.log('Type Check Complete')
   })
-}
-
-checkFiles()
+  .catch((err) => {
+    console.error(err)
+    process.exit(1)
+  })
 ```
 
 ### Arguments
@@ -50,7 +62,7 @@ You can specify some arguments with either usage. For CLI arguments prepend with
 | `root`        | Current Directory                                              | The relative path to the directory to be treated as the root (where your `tsconfig.json` file exists) |
 | `src`         | `<root>/src`                                                   | The relative path to the src directory containing your vue files |
 | `tsconfig`    | `tsconfig.json`                                                | The name of your `tsconfig.json` file |
-| `tsbuildinfo` | Settings in `tsconfig.json`                                    | If using `incremental` builds, the relative path to where to store the `.tsbuildinfo` file |
+| `tsbuildinfo` | Setting in `tsconfig.json`                                    | If using `incremental` builds, the relative path to where to store the `.tsbuildinfo` file |
 
 ## Comparisons
 
