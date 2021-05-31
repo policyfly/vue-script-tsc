@@ -5,6 +5,13 @@
 
 A lightning fast TypeScript type checker for Vue SFC Script tags.
 
+## Features
+
+- Type Checks the `<script>` tags of all `.vue` files + any related `.ts` files
+- Can be run in a CLI without requiring a build tool (such as webpack)
+- Uses your local TypeScript version
+- Simple, lightweight & fast
+
 ## Prerequisites
 
 - Node ^12.0.0
