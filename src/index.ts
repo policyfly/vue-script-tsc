@@ -6,6 +6,9 @@ import { Options, parseArgs } from './args'
 import { createHost } from './host'
 import { COLORS } from './utils'
 
+const vueFileRegex = /\.vue$/
+const preScriptRegex = /^([\s\S]*)<script/
+
 async function getVueFiles(
   path: string,
   files: string[] = []
@@ -60,7 +63,7 @@ export async function tsc(opts: Options): Promise<void> {
 
   allDiagnostics.forEach((diagnostic) => {
     if (diagnostic.file) {
-      const { line, character } = ts.getLineAndCharacterOfPosition(
+      const positions = ts.getLineAndCharacterOfPosition(
         diagnostic.file,
         diagnostic.start as number
       )
@@ -69,9 +72,20 @@ export async function tsc(opts: Options): Promise<void> {
         '\n'
       )
       const filename = diagnostic.file.fileName.replace('.vue.ts', '.vue')
+      let line = positions.line + 1
+      // on .vue files, add lines from before the script tag so line count matches
+      if (vueFileRegex.test(filename)) {
+        const originalFile = ts.sys.readFile(filename)
+        if (originalFile) {
+          const match = preScriptRegex.exec(originalFile)
+          if (match) {
+            line += match[1].split('\n').length - 1
+          }
+        }
+      }
       console.log(
         COLORS.ERROR,
-        `${filename} (${line},${character + 1}): ${message}`
+        `${filename} (${line},${positions.character + 1}): ${message}`
       )
     } else {
       console.log(
