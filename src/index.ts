@@ -4,6 +4,7 @@ import * as ts from 'typescript'
 
 import { Options, parseArgs } from './args'
 import { createHost } from './host'
+import { COLORS } from './utils'
 
 async function getVueFiles(
   path: string,
@@ -67,17 +68,20 @@ export async function tsc(opts: Options): Promise<void> {
         diagnostic.messageText,
         '\n'
       )
+      const filename = diagnostic.file.fileName.replace('.vue.ts', '.vue')
       console.log(
-        `${diagnostic.file.fileName.replace('.vue.ts', '.vue')} (${line + 1},${
-          character + 1
-        }): ${message}`
+        COLORS.ERROR,
+        `${filename} (${line},${character + 1}): ${message}`
       )
     } else {
-      console.log(ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n'))
+      console.log(
+        COLORS.ERROR,
+        ts.flattenDiagnosticMessageText(diagnostic.messageText, '\n')
+      )
     }
   })
 
   if (allDiagnostics.length) {
-    throw new Error('Type Check returned errors')
+    throw new Error('Type Check returned errors, see above')
   }
 }
