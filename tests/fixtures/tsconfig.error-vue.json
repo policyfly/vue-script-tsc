@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "src-error-vue",
+    "strict": true,
+    "noEmit": true
+  },
+  "include": [
+    "src-error-vue/**/*.ts",
+    "src-error-vue/**/*.vue"
+  ]
+}
