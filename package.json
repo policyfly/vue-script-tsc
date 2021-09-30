@@ -25,7 +25,7 @@
   ],
   "scripts": {
     "prepare": "yarn build",
-    "commit": "cz",
+    "commit": "yarn test && cz",
     "build": "tsc",
     "test": "jest",
     "semantic-release": "semantic-release"
