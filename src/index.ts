@@ -1,5 +1,3 @@
-import { promises as fs } from 'fs'
-import { resolve } from 'path'
 import * as ts from 'typescript'
 
 import { Options, parseArgs } from './args'
@@ -8,25 +6,6 @@ import { COLORS } from './utils'
 
 const vueFileRegex = /\.vue$/
 const preScriptRegex = /^([\s\S]*)<script/
-
-async function getVueFiles(
-  path: string,
-  files: string[] = []
-): Promise<string[]> {
-  const entries = await fs.readdir(path)
-
-  for (const file of entries) {
-    const filePath = resolve(path, file)
-    const stat = await fs.stat(filePath)
-    if (stat.isDirectory()) {
-      await getVueFiles(filePath, files)
-    } else if (file.endsWith('.vue')) {
-      files.push(filePath)
-    }
-  }
-
-  return files
-}
 
 export async function tsc(opts: Options): Promise<void> {
   const parsedOpts = parseArgs(opts)
@@ -46,14 +25,24 @@ export async function tsc(opts: Options): Promise<void> {
   const { fileNames, options } = ts.parseJsonConfigFileContent(
     config,
     ts.sys,
-    parsedOpts.root
+    parsedOpts.root,
+    undefined,
+    undefined,
+    undefined,
+    [
+      {
+        extension: '.vue',
+        isMixedContent: true,
+        // will ensure this will always be included
+        scriptKind: ts.ScriptKind.Deferred,
+      },
+    ]
   )
 
   const host = createHost(options)
-  const files = await getVueFiles(parsedOpts.src)
   // .vue is not a supported extension, so we fake it
   // this is removed later during resolution
-  const rootNames = fileNames.concat(files.map((f) => f + '.ts'))
+  const rootNames = fileNames.map((f) => f.replace(vueFileRegex, '.vue.ts'))
   const program = ts.createProgram({ options, rootNames, host })
   const emitResult = program.emit()
 
