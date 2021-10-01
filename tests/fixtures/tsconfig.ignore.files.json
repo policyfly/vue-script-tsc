@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "src-ignore",
+    "strict": true,
+    "noEmit": true
+  },
+  "files": [
+    "src-ignore/App.vue"
+  ]
+}

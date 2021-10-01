@@ -61,5 +61,41 @@ describe('index', () => {
         )
       }
     })
+
+    test('respects exclude option', async () => {
+      try {
+        await tsc({
+          root: fixturesDir,
+          src: join(fixturesDir, 'src-ignore'),
+          tsconfig: 'tsconfig.ignore.exclude.json',
+        })
+      } catch (err) {
+        expect(consoleSpy).not.toBeCalled()
+      }
+    })
+
+    test('respects files option', async () => {
+      try {
+        await tsc({
+          root: fixturesDir,
+          src: join(fixturesDir, 'src-ignore'),
+          tsconfig: 'tsconfig.ignore.files.json',
+        })
+      } catch (err) {
+        expect(consoleSpy).not.toBeCalled()
+      }
+    })
+
+    test('respects include option', async () => {
+      try {
+        await tsc({
+          root: fixturesDir,
+          src: join(fixturesDir, 'src-ignore'),
+          tsconfig: 'tsconfig.ignore.include.json',
+        })
+      } catch (err) {
+        expect(consoleSpy).not.toBeCalled()
+      }
+    })
   })
 })
