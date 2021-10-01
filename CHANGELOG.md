@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/policyfly/vue-script-tsc/compare/v1.1.0...v1.2.0) (2021-10-01)
+
+
+### Features
+
+* respect files/include/exclude options for .vue files ([f2c5667](https://github.com/policyfly/vue-script-tsc/commit/f2c5667d328a656cd6bd6a0fa34c3bc79bd767d9)), closes [#3](https://github.com/policyfly/vue-script-tsc/issues/3)
+
 # [1.1.0](https://github.com/policyfly/vue-script-tsc/compare/v1.0.2...v1.1.0) (2021-05-31)
 
 
