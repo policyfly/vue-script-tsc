@@ -24,8 +24,7 @@
     "dist"
   ],
   "scripts": {
-    "prepare": "yarn build",
-    "commit": "yarn test && cz",
+    "prepare": "husky install & yarn build",
     "build": "tsc",
     "test": "jest",
     "semantic-release": "semantic-release"
@@ -46,6 +45,7 @@
     "eslint": "^7.27.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.2",
     "jest": "^27.2.4",
     "prettier": "^2.3.0",
     "semantic-release": "^17.4.3",
