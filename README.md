@@ -8,9 +8,10 @@
 ## Features
 
 - Type Checks the `<script>` tags of `.vue` files + any related `.ts` files
-- Can be run in a CLI without requiring a build tool (such as webpack)
+- Can be run in a CLI **without requiring a build tool** (such as webpack)
 - Uses your local TypeScript version
 - Respects files/include/exclude as specified in your `tsconfig.json`
+- Supports incremental builds
 - Simple, lightweight & fast
 
 ## Prerequisites
