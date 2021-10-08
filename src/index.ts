@@ -41,12 +41,19 @@ export async function tsc(opts: Options): Promise<void> {
   // .vue is not a supported extension, so we fake it
   // this is removed later during resolution
   const rootNames = fileNames.map((f) => f.replace(vueFileRegex, '.vue.ts'))
-  const program = ts.createProgram({ options, rootNames, host })
+  const program = options.incremental
+    ? ts.createIncrementalProgram({ options, rootNames, host })
+    : ts.createProgram({ options, rootNames, host })
   const emitResult = program.emit()
 
-  const allDiagnostics = ts
-    .getPreEmitDiagnostics(program)
-    .concat(emitResult.diagnostics)
+  const diagnostics = [
+    ...program.getConfigFileParsingDiagnostics(),
+    ...program.getSyntacticDiagnostics(),
+    ...program.getOptionsDiagnostics(),
+    ...program.getSemanticDiagnostics(),
+  ]
+
+  const allDiagnostics = diagnostics.concat(emitResult.diagnostics)
 
   allDiagnostics.forEach((diagnostic) => {
     if (diagnostic.file) {
