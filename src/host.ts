@@ -3,7 +3,9 @@ import * as ts from 'typescript'
 const scriptRegex = /<script.*>([\s\S]*)<\/script>/
 
 export function createHost(options: ts.CompilerOptions): ts.CompilerHost {
-  const host = ts.createCompilerHost(options)
+  const host = options.incremental
+    ? ts.createIncrementalCompilerHost(options)
+    : ts.createCompilerHost(options)
   host.fileExists = (filename: string): boolean => {
     // remove the .ts extension that TS will try to append when resolving
     const actualFilename = filename.replace('.vue.ts', '.vue')

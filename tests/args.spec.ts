@@ -4,6 +4,7 @@ import { Options, parseArgs } from '../src/args'
 const cwd = resolve(__dirname, '..')
 
 describe('args', () => {
+  // Tests
   describe('parseArgs', () => {
     test('uses default values', () => {
       expect(parseArgs({})).toEqual({

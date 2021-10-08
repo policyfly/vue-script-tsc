@@ -13,3 +13,4 @@ report.*.json
 
 # Test files
 tests/coverage
+tests/fixtures/*.tsbuildinfo

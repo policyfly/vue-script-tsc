@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "rootDir": "src-clean",
+    "strict": true,
+    "noEmit": true,
+    "incremental": true,
+    "tsBuildInfoFile": "clean.tsbuildinfo"
+  },
+  "include": [
+    "src-clean/**/*.ts",
+    "src-clean/**/*.vue"
+  ]
+}
