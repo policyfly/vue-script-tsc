@@ -20,8 +20,6 @@ export async function tsc(opts: Options): Promise<void> {
       `tsconfig.json not found, looked for ${parsedOpts.tsconfig} in ${parsedOpts.root}`
     )
   const { config } = ts.readConfigFile(configFile, ts.sys.readFile)
-  if (parsedOpts.tsbuildinfo)
-    config.compilerOptions.tsBuildInfoFile = parsedOpts.tsbuildinfo
   const { fileNames, options } = ts.parseJsonConfigFileContent(
     config,
     ts.sys,
