@@ -3,13 +3,14 @@
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Semantic Release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
 
-A lightning fast TypeScript type checker for Vue SFC Script tags.
+⚡️ A lightning fast TypeScript type checker for Vue SFC Script tags ⚡️
 
 ## Features
 
-- Type Checks the `<script>` tags of all `.vue` files + any related `.ts` files
+- Type Checks the `<script>` tags of `.vue` files + any related `.ts` files
 - Can be run in a CLI without requiring a build tool (such as webpack)
 - Uses your local TypeScript version
+- Respects files/include/exclude as specified in your `tsconfig.json`
 - Simple, lightweight & fast
 
 ## Prerequisites
@@ -64,12 +65,12 @@ tsc({
 
 You can specify some arguments with either usage. For CLI arguments prepend with a `--`, for example `--root src`. For programmatic pass an options object with these as keys.
 
-| Option        | Default                                                        | Description |
-| ------------- | -------------------------------------------------------------- | ----------- |
-| `root`        | Current Directory                                              | The relative path to the directory to be treated as the root (where your `tsconfig.json` file exists) |
-| `src`         | `<root>/src`                                                   | The relative path to the src directory containing your vue files |
-| `tsconfig`    | `tsconfig.json`                                                | The name of your `tsconfig.json` file |
-| `tsbuildinfo` | Setting in `tsconfig.json`                                    | If using `incremental` builds, the relative path to where to store the `.tsbuildinfo` file |
+| Option        | Default           | Description                                                                                           |
+| ------------- | ----------------- | ----------------------------------------------------------------------------------------------------- |
+| `root`        | Current Directory | The relative path to the directory to be treated as the root (where your `tsconfig.json` file exists) |
+| `tsconfig`    | `tsconfig.json`   | The name of your `tsconfig.json` file (*)                                                             |
+
+(*) It is recommended you use a dedicated `tsconfig.json` for `vue-script-tsc`. If you use incremental builds you should specify a different `compilerOptions.tsBuildInfoFile`.
 
 ## Comparisons
 
