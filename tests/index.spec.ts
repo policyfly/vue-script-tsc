@@ -20,7 +20,6 @@ describe('index', () => {
       try {
         await tsc({
           root: fixturesDir,
-          src: join(fixturesDir, 'src-clean'),
           tsconfig: 'tsconfig.clean.json',
         })
       } catch (err) {
@@ -32,7 +31,6 @@ describe('index', () => {
       try {
         await tsc({
           root: fixturesDir,
-          src: join(fixturesDir, 'src-error-vue'),
           tsconfig: 'tsconfig.error-vue.json',
         })
         expect('Should not have passed').toBeFalsy()
@@ -49,7 +47,6 @@ describe('index', () => {
       try {
         await tsc({
           root: fixturesDir,
-          src: join(fixturesDir, 'src-error-ts'),
           tsconfig: 'tsconfig.error-ts.json',
         })
         expect('Should not have passed').toBeFalsy()
@@ -66,7 +63,6 @@ describe('index', () => {
       try {
         await tsc({
           root: fixturesDir,
-          src: join(fixturesDir, 'src-ignore'),
           tsconfig: 'tsconfig.ignore.exclude.json',
         })
       } catch (err) {
@@ -78,7 +74,6 @@ describe('index', () => {
       try {
         await tsc({
           root: fixturesDir,
-          src: join(fixturesDir, 'src-ignore'),
           tsconfig: 'tsconfig.ignore.files.json',
         })
       } catch (err) {
@@ -90,7 +85,6 @@ describe('index', () => {
       try {
         await tsc({
           root: fixturesDir,
-          src: join(fixturesDir, 'src-ignore'),
           tsconfig: 'tsconfig.ignore.include.json',
         })
       } catch (err) {

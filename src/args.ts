@@ -6,30 +6,18 @@ export interface Options {
    */
   root?: string
   /**
-   * The path to the src directory containing your vue files.
-   */
-  src?: string
-  /**
    * The path to the `tsconfig.json` file.
    */
   tsconfig?: string
-  /**
-   * If using `incremental` builds, where to store the tsbuildinfo file.
-   */
-  tsbuildinfo?: string
 }
 
 export function parseArgs(opts: Options): Required<Options> {
   const cwd = process.cwd()
   const root = opts.root ? resolve(cwd, opts.root) : cwd
-  const src = opts.src ? resolve(cwd, opts.src) : resolve(root, 'src')
   const tsconfig = opts.tsconfig || 'tsconfig.json'
-  const tsbuildinfo = opts.tsbuildinfo ? resolve(cwd, opts.tsbuildinfo) : ''
 
   return {
     root,
-    src,
     tsconfig,
-    tsbuildinfo,
   }
 }
