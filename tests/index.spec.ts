@@ -30,12 +30,14 @@ describe('index', () => {
 
   /**
    * @param buildInfo The path to the `.tsbuildinfo` file.
-   * @param strings Asserts each of the provided strings appears in the buildInfo file.
+   * @param strings Asserts each of the provided strings appears in the buildInfo file (case insensitive).
    */
   async function checkBuildFile(buildInfo: string, strings: string[]) {
-    const buildFile = await readFile(buildInfo, 'utf-8')
+    const buildFile = (await readFile(buildInfo, 'utf-8'))
+      .toString()
+      .toLowerCase()
     for (const str of strings) {
-      expect(buildFile).toContain(str)
+      expect(buildFile).toContain(str.toLowerCase())
     }
   }
 
