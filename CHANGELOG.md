@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/policyfly/vue-script-tsc/compare/v1.2.0...v1.3.0) (2021-10-08)
+
+
+### Features
+
+* support incremental builds ([98d3578](https://github.com/policyfly/vue-script-tsc/commit/98d35782b715e0e5a729908bf6d8fc23cb7137b4)), closes [#5](https://github.com/policyfly/vue-script-tsc/issues/5)
+
 # [1.2.0](https://github.com/policyfly/vue-script-tsc/compare/v1.1.0...v1.2.0) (2021-10-01)
 
 
