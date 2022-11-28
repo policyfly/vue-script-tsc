@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/policyfly/vue-script-tsc/compare/v1.3.0...v1.3.1) (2022-11-28)
+
+
+### Bug Fixes
+
+* **host:** show console warning when trying to type check <script setup> ([0890fb5](https://github.com/policyfly/vue-script-tsc/commit/0890fb5e4747a6fa17a550a2b445af5b26bc4ae3))
+
 # [1.3.0](https://github.com/policyfly/vue-script-tsc/compare/v1.2.0...v1.3.0) (2021-10-08)
 
 
