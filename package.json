@@ -27,6 +27,7 @@
     "prepare": "husky install & yarn build",
     "build": "tsc",
     "test": "jest",
+    "lint": "eslint --ext js,ts,vue .",
     "semantic-release": "semantic-release"
   },
   "dependencies": {
