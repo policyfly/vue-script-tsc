@@ -83,6 +83,7 @@ You can specify some arguments with either usage. For CLI arguments prepend with
 - Can also type check the Template within SFCs
 - Only supports Vue3
 - Currently does not provide an option to skip Template type checking
+- Supports `<script setup>` (which `vue-script-tsc` does not)
 
 ### Webpack (vue-cli)
 
