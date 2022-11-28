@@ -29,14 +29,17 @@ yarn add -D vue-script-tsc
 
 ### CLI
 
-You can run `vue-script-tsc` as a script, for example in package.json or on the command line.
+You can run `vue-script-tsc` as a script in package.json, either by itself or as part of a build process:
 
 ```json
 // package.json
 "scripts": {
-  "tsc": "yarn vue-script-tsc --root ."
+  "tsc": "vue-script-tsc --root .",
+  "build": "vue-script-tsc --root . && vue-cli-service build"
 }
 ```
+
+Or on the command line:
 
 ```bash
 # Command line
