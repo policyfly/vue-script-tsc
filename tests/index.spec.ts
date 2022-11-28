@@ -54,7 +54,7 @@ describe('index', () => {
       } catch (err) {
         expect(consoleSpy).not.toBeCalled()
       }
-    })
+    }, 20000)
 
     test('throws errors in vue files', async () => {
       expect.hasAssertions()
@@ -65,13 +65,15 @@ describe('index', () => {
         })
         expect('Should not have passed').toBeFalsy()
       } catch (err) {
-        expect(err.message).toBe('Type Check returned errors, see above')
+        expect((err as Error).message).toBe(
+          'Type Check returned errors, see above'
+        )
         expect(consoleSpy).toBeCalledTimes(1)
         expect(consoleSpy.mock.calls[0][1]).toContain(
           "/tests/fixtures/src-error-vue/App.vue (14,7): Type 'string' is not assignable to type 'number'."
         )
       }
-    })
+    }, 20000)
 
     test('throws errors in imported files', async () => {
       expect.hasAssertions()
@@ -82,9 +84,9 @@ describe('index', () => {
         })
         expect('Should not have passed').toBeFalsy()
       } catch (err) {
-        errorTSExpectations(err)
+        errorTSExpectations(err as Error)
       }
-    })
+    }, 20000)
 
     test('respects exclude option', async () => {
       expect.assertions(1)
@@ -97,7 +99,7 @@ describe('index', () => {
       } catch (err) {
         expect(consoleSpy).not.toBeCalled()
       }
-    })
+    }, 20000)
 
     test('respects files option', async () => {
       expect.assertions(1)
@@ -110,7 +112,7 @@ describe('index', () => {
       } catch (err) {
         expect(consoleSpy).not.toBeCalled()
       }
-    })
+    }, 20000)
 
     test('respects include option', async () => {
       expect.assertions(1)
@@ -123,7 +125,7 @@ describe('index', () => {
       } catch (err) {
         expect(consoleSpy).not.toBeCalled()
       }
-    })
+    }, 20000)
 
     test('performs incremental builds (clean)', async () => {
       expect.hasAssertions()
@@ -164,7 +166,7 @@ describe('index', () => {
         await runTSC()
         expect('Should not have passed').toBeFalsy()
       } catch (err) {
-        errorTSExpectations(err)
+        errorTSExpectations(err as Error)
         await checkBuildFile(buildInfo, ['app.vue', 'messages.ts'])
 
         // check that the build info file is able to be read, this should take much less time
@@ -173,8 +175,49 @@ describe('index', () => {
           await runTSC()
           expect('Should not have passed').toBeFalsy()
         } catch (err) {
-          errorTSExpectations(err)
+          errorTSExpectations(err as Error)
         }
+      }
+    }, 20000)
+
+    test('warns about script setup (no errors)', async () => {
+      expect.hasAssertions()
+      try {
+        await tsc({
+          root: fixturesDir,
+          tsconfig: 'tsconfig.setup.clean.json',
+        })
+        expect(consoleSpy).toBeCalledTimes(2)
+        expect(consoleSpy.mock.calls[0][1]).toContain(
+          '<script setup> is not supported, file will be skipped'
+        )
+        expect(consoleSpy.mock.calls[1][1]).toContain(
+          '<script setup> is not supported, file will be skipped'
+        )
+      } catch (err) {
+        expect(err).toBeFalsy()
+      }
+    }, 20000)
+
+    test('warns about script setup but still errors in other files', async () => {
+      expect.hasAssertions()
+      try {
+        await tsc({
+          root: fixturesDir,
+          tsconfig: 'tsconfig.setup.error.json',
+        })
+        expect('Should not have passed').toBeFalsy()
+      } catch (err) {
+        expect((err as Error).message).toBe(
+          'Type Check returned errors, see above'
+        )
+        expect(consoleSpy).toBeCalledTimes(2)
+        expect(consoleSpy.mock.calls[0][1]).toContain(
+          '<script setup> is not supported, file will be skipped'
+        )
+        expect(consoleSpy.mock.calls[1][1]).toContain(
+          "/tests/fixtures/src-setup-error/Other.vue (10,28): Type 'string' is not assignable to type 'number'."
+        )
       }
     }, 20000)
   })

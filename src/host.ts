@@ -1,6 +1,7 @@
 import * as ts from 'typescript'
+import { COLORS } from './utils'
 
-const scriptRegex = /<script.*>([\s\S]*)<\/script>/
+const scriptRegex = /<script(.*)>([\s\S]*)<\/script>/
 
 export function createHost(options: ts.CompilerOptions): ts.CompilerHost {
   const host = options.incremental
@@ -18,7 +19,14 @@ export function createHost(options: ts.CompilerOptions): ts.CompilerHost {
     if (!contents) return
     const match = scriptRegex.exec(contents)
     if (!match) return contents
-    return match[1]
+    if (match[1].includes('setup')) {
+      console.log(
+        COLORS.WARNING,
+        '<script setup> is not supported, file will be skipped'
+      )
+      return 'export default {}'
+    }
+    return match[2]
   }
   host.resolveModuleNames = (
     moduleNames: string[],
